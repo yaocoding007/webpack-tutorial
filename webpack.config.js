@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     mode: 'production',
@@ -38,6 +40,12 @@ module.exports = {
             title: 'webpack tutorial',
             template: path.resolve(__dirname, './src/template.html'),
             filename: 'index.html'
-        })
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'public/latex2img', to: 'latex2img' },
+            ],
+        }),
+        new BundleAnalyzerPlugin()
     ]
 }
